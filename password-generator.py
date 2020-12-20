@@ -24,7 +24,6 @@ while not terminated:
             selected_chars.append(random_chars[rand_index])
         generated_pw = ''.join(selected_chars)
 
-        #generated_pw = ''.join((SystemRandom.random().choice(random_chars) for i in range(int(pw_len))))
         print('\nHere is your randomly generated password of your specified length of ' + str(pw_len) + ':\n' + generated_pw)
         terminated = True
     except:
