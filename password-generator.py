@@ -1,6 +1,6 @@
-from random import SystemRandom
+from os import urandom
+from struct import unpack
 import string
-import sys
 
 terminated = False
 while not terminated:
@@ -16,15 +16,16 @@ while not terminated:
         letters = string.ascii_letters
         digits = string.digits
         random_chars = punctuation + letters + digits
-        rand = SystemRandom()
 
-        selected_chars = []
-        for n in range(pw_len):
-            rand_index = rand.randrange(len(random_chars))
-            selected_chars.append(random_chars[rand_index])
-        generated_pw = ''.join(selected_chars)
+        generated_pw = ''
+        n = 0
+        while n < pw_len:
+            rand_c = unpack('c', urandom(1))[0]
+            if rand_c in random_chars:
+                generated_pw += rand_c
+                n += 1
 
-        print('\nHere is your randomly generated password of your specified length of ' + str(pw_len) + ':\n' + generated_pw)
+        print('\nHere is your randomly generated password of your specified length of ' + str(pw_len) + ':\n\n' + generated_pw)
         terminated = True
     except:
         print('\nInvalid input was entered. Please provide a number in between 8 and 80 inclusive.')
