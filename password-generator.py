@@ -1,8 +1,8 @@
 from os import urandom
 from struct import unpack
-from string import punctuation as p
-from string import ascii_letters as l
-from string import digits as d
+from string import punctuation
+from string import ascii_letters
+from string import digits
 
 terminated = False
 while not terminated:
@@ -15,19 +15,16 @@ while not terminated:
             terminated = True
             continue
 
-        # Collect a set of all possible valid password characters
-        punctuation = p
-        letters = l
-        digits = d
-        random_chars = punctuation + letters + digits
+        # Make a string of all possible valid password characters
+        chars = punctuation + ascii_letters + digits
 
         # Generate a random password of the given length
         generated_pw = ''
         n = 0
         while n < pw_len:
-            rand_c = unpack('c', urandom(1))[0]
-            if rand_c in random_chars:
-                generated_pw += rand_c
+            random_char = unpack('c', urandom(1))[0]
+            if random_char in chars:
+                generated_pw += random_char
                 n += 1
 
         print('\nHere is your randomly generated password of your specified length of ' + str(pw_len) + ':\n\n' + generated_pw)
