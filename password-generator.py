@@ -1,5 +1,4 @@
-from os import urandom
-from struct import unpack
+import secrets
 from string import punctuation
 from string import ascii_letters
 from string import digits
@@ -19,15 +18,9 @@ while not terminated:
         chars = punctuation + ascii_letters + digits
 
         # Generate a random password of the given length
-        generated_pw = ''
-        n = 0
-        while n < pw_len:
-            random_char = unpack('c', urandom(1))[0]
-            if random_char in chars:
-                generated_pw += random_char
-                n += 1
+        password = ''.join(secrets.choice(chars) for i in range(pw_len))
 
-        print('\nHere is your randomly generated password of your specified length of ' + str(pw_len) + ':\n\n' + generated_pw)
+        print('\nHere is your randomly generated password of your specified length of ' + str(pw_len) + ':\n\n' + password)
         terminated = True
     except:
         print('\nInvalid input was entered. Please provide a number in between 8 and 80 inclusive.')
